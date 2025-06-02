@@ -1,0 +1,12 @@
+
+.HeaderComponent {
+    background-color:#0F5CA0;
+    color: whitesmoke;
+    display: flex;
+    justify-content: space-between;
+    background-color:#0F5CA0;
+    height: 85px;
+    font-size: xx-large;
+    /* font-weight: bolder; */
+  }
+  
