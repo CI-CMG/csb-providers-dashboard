@@ -8,7 +8,7 @@ import './main.css'
 import { routeTree } from './routeTree.gen'
 // import type { ProvidersType } from './types'
 
-  const fetchProvidersData = async () => {
+const fetchProvidersData = async () => {
   // return fetch('https://order-pickup.s3.amazonaws.com/csb_provider_statistics.json').then( res => res.json() )
   const response = await fetch('https://order-pickup.s3.amazonaws.com/csb_provider_statistics.json')
   if (!response.ok) {

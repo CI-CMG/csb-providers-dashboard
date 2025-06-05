@@ -1,6 +1,8 @@
 import { createFileRoute, notFound, Outlet, Link } from '@tanstack/react-router'
-import type { PlatformCountType, ProvidersType } from '../../types'
+import type { MonthlyCountType, PlatformCountType, ProvidersType } from '../../types'
 import HeaderComponent from '../../components/HeaderComponent'
+import BarChart from '../../components/MonthlyCountsChart/MonthlyCountsChart'
+
 import './providerId.css'
 
 function fetchProviderDetail(data:ProvidersType, providerId:string) {
@@ -9,6 +11,47 @@ function fetchProviderDetail(data:ProvidersType, providerId:string) {
 
     return(providerData)
 }
+
+
+function constructArrayElement(mydata:Array<MonthlyCountType>, year:number, month:string) {
+    console.log({mydata})
+  const searchString = `${year}-${month}-01`
+  // const label = `${month}-${year}`
+  const label = `${year}-${month}`
+
+  const match = mydata.find(elem => elem.Month === searchString)
+  if (match) {
+    return ({'label': label, 'count': match.Count})
+  } else {
+    return ({'label': label, 'count': 0})
+  }
+}
+
+/**
+ * Given an array of non-zero monthly counts, returns a fully-populated array with items for each month
+ * 
+ * @param data array of monthly counts
+ * @returns 
+ */
+function generateTimeSeriesArray(data:Array<MonthlyCountType>) {
+  const result = []
+
+  const now = new Date()
+  const thisYear = now.getUTCFullYear()
+  const thisMonth = now.getUTCMonth() + 1
+  for (let yr = 2017; yr < thisYear;  yr++) {
+    for (let mon = 1; mon <= 12; mon++) {
+      const monthString =  String(mon).padStart(2,'0')
+      result.push( constructArrayElement(data, yr, monthString) )
+    } 
+  }
+  for (let mon = 1; mon <= thisMonth; mon++) {
+      const monthString =  String(mon).padStart(2,'0')
+      result.push( constructArrayElement(data, thisYear, monthString) )
+  } 
+  return result
+}
+
 
 export const Route = createFileRoute('/providers/$providerId')({
   component: ProviderComponent,
@@ -35,6 +78,7 @@ function ProviderComponent() {
     const { providerId } = Route.useParams()
     const providerData = Route.useLoaderData()
 
+    const timeseriesData = generateTimeSeriesArray(providerData.MonthlyCounts)
     return (
         <div className={'wrapper'}>
             <header><HeaderComponent title={'Crowdsourced Bathymetry Provider'} /></header>
@@ -83,6 +127,9 @@ function ProviderComponent() {
                         <Outlet/>
                     </div>
                 </div>
+                <div className='bg-slate-100 mt-10'>
+                    <BarChart data={timeseriesData} />
+                    </div>
             </main>
             <footer className='footer'>Footer</footer>
 </div>
