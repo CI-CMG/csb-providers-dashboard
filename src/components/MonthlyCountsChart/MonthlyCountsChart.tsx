@@ -17,7 +17,7 @@ export default function BarChart({ data }: AppProps ) {
         x: {
             tickRotate: -30,
             label: null,
-            ticks: data.map((elem) => elem.label).filter((elem, idx) => idx % 12 === 0)
+            ticks: data.map((elem) => elem.label).filter((_, idx) => idx % 12 === 0) 
           },
       marks: [
         Plot.barY(data, {
