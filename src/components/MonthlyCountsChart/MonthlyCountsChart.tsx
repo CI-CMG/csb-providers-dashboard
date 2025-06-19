@@ -4,20 +4,25 @@ import { useRef, useEffect } from "react"
 
 type AppProps = {
     data: Array<{label:string, count: number}>
+    yAxisLabel: string
+    yTickFunction: (i:number) => number
 }
 
 
-export default function BarChart({ data }: AppProps ) {
+export default function BarChart({ data, yAxisLabel, yTickFunction }: AppProps ) {
   const plotRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     if (!plotRef.current) { return }
     const barChart = Plot.plot({
-        width: 1200,
+        width: 1000,
         x: {
             tickRotate: -30,
             label: null,
-            ticks: data.map((elem) => elem.label).filter((_, idx) => idx % 12 === 0) 
+            ticks: data.map((elem) => elem.label).filter((_, idx) => idx % 12 === 0) ,
+            // following supresses a warning about using strings rather than dates for month
+            type: 'band'
+
           },
       marks: [
         Plot.barY(data, {
@@ -26,9 +31,9 @@ export default function BarChart({ data }: AppProps ) {
         })
       ],
       y: {
-        label: 'Soundings (millions)',
+        label: yAxisLabel,
         grid: true,
-        tickFormat: (i)=>i/1000000
+        tickFormat: yTickFunction
       },
       marginTop: 50,
       marginBottom: 50,

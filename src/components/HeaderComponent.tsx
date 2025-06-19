@@ -14,6 +14,7 @@ export default function HeaderComponent({ title }: AppProps) {
         <img src={logo} height='60px'></img>
         <h2 style={{margin:'auto'}}>{title}</h2>
         <img src={banner} height='60px'></img>
+        
     </div>
   )
 }

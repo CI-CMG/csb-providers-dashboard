@@ -59,7 +59,7 @@ function ProvidersLayoutComponent() {
         </p>
       </main>
 
-      <footer className="footer text-center">Footer</footer>
+      <footer className="footer text-center"></footer>
     </div>
   )
 }
