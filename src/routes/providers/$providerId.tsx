@@ -54,15 +54,15 @@ function constructArrayElement(mydata:Array<MonthlyCountType>, year:number, mont
 /**
  * Given an array of non-zero monthly counts, returns a fully-populated array with items for each month
  * 
+ * TODO may not be necessary with the use of Javascript Date objects and specifying domain of x-axis
+ * 
  * @param data array of monthly counts
  * @returns 
  */
 function generateTimeSeriesArray(data:Array<MonthlyCountType>) {
   const result = []
   const myData = data.sort((a, b) => a.Month.localeCompare(b.Month));
-  let startYear = parseInt(myData[0].Month.split('-')[0])
-  // HACK until Rosepoint data issue resolved
-  startYear = startYear < 2017 ? 2017 : startYear
+  const startYear = parseInt(myData[0].Month.split('-')[0])
   const now = new Date()
   const thisYear = now.getUTCFullYear()
   const thisMonth = now.getUTCMonth() + 1
@@ -170,7 +170,7 @@ function ProviderComponent() {
                     <BarChart data={timeseriesData} yAxisLabel={ylabel?.axisLabel} yTickFunction={ylabel?.tickFunction} />
                 </div>
             </main>
-            <footer className='footer'>Footer</footer>
+            <footer className='footer'></footer>
 </div>
     )
 }
