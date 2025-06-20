@@ -45,9 +45,9 @@ function constructArrayElement(mydata:Array<MonthlyCountType>, year:number, mont
 
   const match = mydata.find(elem => elem.Month === searchString)
   if (match) {
-    return ({'label': label, 'count': match.Count})
+    return ({'label': label, 'month': new Date(label), 'count': match.Count})
   } else {
-    return ({'label': label, 'count': 0})
+    return ({'label': label, 'month': new Date(label), 'count': 0})
   }
 }
 
@@ -111,6 +111,8 @@ function ProviderComponent() {
     }
 
     const timeseriesData = generateTimeSeriesArray(providerData.MonthlyCounts)
+    // const dates = timeseriesData.map(i => new Date(i.label))
+    // console.log({dates})
     const ylabel = yAxisHelper(providerData.MonthlyCounts)
     return (
         <div className={'wrapper'}>
