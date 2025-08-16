@@ -16,6 +16,7 @@ export default function BarChart({ data, yAxisLabel, yTickFunction }: AppProps )
   useEffect(() => {
     if (!plotRef.current) { return }
     const barChart = Plot.plot({
+        // caption: 'Sounding Counts by Submission Date',
         width: 1000,
         x: {
             tickRotate: -30,
@@ -41,7 +42,15 @@ export default function BarChart({ data, yAxisLabel, yTickFunction }: AppProps )
           x: "month",
           y: "count",
           interval: timeMonth
-        })
+        }),
+        Plot.text(["Sounding Counts by Submission Date"], {
+      frameAnchor: "top",
+      dy: -30,
+      fontSize: 16,
+      fontWeight: "bold",
+      lineAnchor: "bottom",
+      text: (d) => d
+    })
       ]
       // marks: [
       //   Plot.barY(data, {

@@ -10,7 +10,7 @@ import { routeTree } from './routeTree.gen'
 
 const fetchProvidersData = async () => {
   // return fetch('https://order-pickup.s3.amazonaws.com/csb_provider_statistics.json').then( res => res.json() )
-  const response = await fetch('https://order-pickup.s3.amazonaws.com/csb_provider_statistics.json')
+  const response = await fetch('https://order-pickup.s3.amazonaws.com/csb_provider_statistics_new.json')
   if (!response.ok) {
     throw new Error(`HTTP error! status: ${response.status}`);
   }

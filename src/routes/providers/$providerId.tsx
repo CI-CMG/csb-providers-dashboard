@@ -4,11 +4,12 @@ import HeaderComponent from '../../components/HeaderComponent'
 import BarChart from '../../components/MonthlyCountsChart/MonthlyCountsChart'
 
 import './providerId.css'
+import PlatformsTable from '../../components/PlatformsTable/PlatformsTable'
 
 function fetchProviderDetail(data:ProvidersType, providerId:string) {
     const providerData = data.providers.find((i) => i.Provider === providerId) 
     if (! providerData) { throw notFound() }
-
+    console.log({providerData})
     return(providerData)
 }
 
@@ -91,6 +92,7 @@ export const Route = createFileRoute('/providers/$providerId')({
   },
 })
 
+
 function sortPlatformsByCount(platformArray:PlatformCountType[]) {
     return (
         platformArray.sort((a, b) => {
@@ -100,6 +102,20 @@ function sortPlatformsByCount(platformArray:PlatformCountType[]) {
         })
     )
 }
+
+
+function sortById() {
+    console.log(`sorting by UUID`)
+}
+
+function sortByName() {
+    console.log(`sorting by name`)
+}
+
+function sortByCount() {
+    console.log(`sorting by count`)
+}
+
 
 function ProviderComponent() {
     const { providerId } = Route.useParams()
@@ -131,7 +147,9 @@ function ProviderComponent() {
                     <span style={{"color": "red", "paddingLeft": "10px"}} title="No data reported within the last 30 days">Inactive</span>
                 }
                 </p>
-                <p>Contributions from {providerData.MinDate} to {providerData.MaxDate}.</p>
+                <p>Soundings collected from {providerData.FirstCollection} to {providerData.LastCollection}.</p>
+                <p>Submissions to DCDB from {providerData.FirstSubmission} to {providerData.LastSubmission}.</p>
+                {/* <p>Contributions from {providerData.MinDate} to {providerData.MaxDate}.</p> */}
                 <p>{providerData.PlatformCount} unique platform(s) with {providerData.TotalSoundings.toLocaleString()} total soundings.</p>
                 
                 {/* <hr style={{}} className='m-10'/> */}
@@ -140,34 +158,42 @@ function ProviderComponent() {
                     <div style={{"height": "300px", "overflow":"auto", "textAlign": "left"}} className='border-solid border-2 '>
                         <table className='bg-gray-20'>
                         <thead>
-                            <tr><th className='pl-2'>Platform</th><th className='pr-2'>Number of Soundings</th></tr>
+                            <tr><th className='pl-6' onClick={sortById}>Platform UUID</th><th onClick={sortByName}>Name</th><th className='pr-2' onClick={sortByCount}>Number of Soundings</th></tr>
                         </thead>
                         <tbody>
                         {
-                            sortPlatformsByCount(providerData.PlatformCounts).map((i) => 
-                            <tr key={i.Platform}>
-                                <td style={{paddingLeft: "10px", paddingRight: "10px"}}>
+                            sortPlatformsByCount(providerData.PlatformCounts).map((i, idx) => 
+                            <tr key={idx}>
+                                <td style={{paddingLeft: "5px", paddingRight: "10px"}}>
                                 <Link
                                     to="/providers/$providerId/$platformId"
-                                    params={{ providerId: providerId, platformId: i.Platform }}
+                                    params={{ providerId: providerId, platformId: i.UniqueId }}
                                     className="block py-1 hover:opacity-75 px-5"
                                     activeProps={{ className: 'font-bold underline' }}
                                 >
-                                    {i.Platform}
+                                    {i.UniqueId}
                                 </Link>
                                 </td>
-                                <td style={{paddingRight: "10px"}}>{i.Count.toLocaleString()}</td>
+                                <td style={{paddingRight: "20px"}}>
+                                    {i.Platform}
+                                </td>
+                                {/* TODO why is Number constructor required for toLocaleString() to work? */}
+                                <td style={{paddingRight: "10px"}}>{Number(i.Count).toLocaleString()}</td>
                             </tr>)
                         }
                         </tbody>
                         </table>
                     </div>
-                    <div className='text-center align-middle m-10 p-5'>
+                    <div className='text-center align-middle m-8 p-1'>
                         <Outlet/>
                     </div>
                 </div>
-                <div className='bg-slate-100 w-fit mt-10'>
+                <div className='bg-slate-100 w-fit mt-6'>
                     <BarChart data={timeseriesData} yAxisLabel={ylabel?.axisLabel} yTickFunction={ylabel?.tickFunction} />
+                </div>
+
+                <div>
+                    <PlatformsTable data={providerData.PlatformCounts} provider={providerId}></PlatformsTable>
                 </div>
             </main>
             <footer className='footer'></footer>
