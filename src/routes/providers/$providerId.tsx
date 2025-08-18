@@ -1,5 +1,5 @@
-import { createFileRoute, notFound, Outlet, Link, useNavigate } from '@tanstack/react-router'
-import type { MonthlyCountType, PlatformCountType, ProvidersType } from '../../types'
+import { createFileRoute, notFound, Outlet, useNavigate } from '@tanstack/react-router'
+import type { MonthlyCountType, ProvidersType } from '../../types'
 import HeaderComponent from '../../components/HeaderComponent'
 import BarChart from '../../components/MonthlyCountsChart/MonthlyCountsChart'
 
