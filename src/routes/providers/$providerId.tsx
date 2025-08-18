@@ -93,28 +93,15 @@ export const Route = createFileRoute('/providers/$providerId')({
 })
 
 
-function sortPlatformsByCount(platformArray:PlatformCountType[]) {
-    return (
-        platformArray.sort((a, b) => {
-            if (b.Count < a.Count)  { return -1 }
-            if (b.Count > a.Count)  { return 1 }
-            return 0
-        })
-    )
-}
-
-
-function sortById() {
-    console.log(`sorting by UUID`)
-}
-
-function sortByName() {
-    console.log(`sorting by name`)
-}
-
-function sortByCount() {
-    console.log(`sorting by count`)
-}
+// function sortPlatformsByCount(platformArray:PlatformCountType[]) {
+//     return (
+//         platformArray.sort((a, b) => {
+//             if (b.Count < a.Count)  { return -1 }
+//             if (b.Count > a.Count)  { return 1 }
+//             return 0
+//         })
+//     )
+// }
 
 
 function ProviderComponent() {
@@ -155,10 +142,14 @@ function ProviderComponent() {
                 {/* <hr style={{}} className='m-10'/> */}
 
                 <div className='flex flex-row mt-5 pt-5'>
-                    <div style={{"height": "300px", "overflow":"auto", "textAlign": "left"}} className='border-solid border-2 '>
+                    <div>
+                        <PlatformsTable data={providerData.PlatformCounts} provider={providerId}></PlatformsTable>
+                    </div>
+
+                    {/* <div style={{"height": "300px", "overflow":"auto", "textAlign": "left"}} className='border-solid border-2 '>
                         <table className='bg-gray-20'>
                         <thead>
-                            <tr><th className='pl-6' ><button onClick={sortById}>Platform UUID</button></th><th onClick={sortByName}>Name</th><th className='pr-2' onClick={sortByCount}>Number of Soundings</th></tr>
+                            <tr><th className='pl-6' >Platform UUID</th><th>Name</th><th className='pr-2'>Number of Soundings</th></tr>
                         </thead>
                         <tbody>
                         {
@@ -182,17 +173,13 @@ function ProviderComponent() {
                         }
                         </tbody>
                         </table>
-                    </div>
+                    </div> */}
                     <div className='text-center align-middle m-8 p-1'>
                         <Outlet/>
                     </div>
                 </div>
                 <div className='bg-slate-100 w-fit mt-6'>
                     <BarChart data={timeseriesData} yAxisLabel={ylabel?.axisLabel} yTickFunction={ylabel?.tickFunction} />
-                </div>
-
-                <div>
-                    <PlatformsTable data={providerData.PlatformCounts} provider={providerId}></PlatformsTable>
                 </div>
             </main>
             <footer className='footer'></footer>

@@ -6,9 +6,10 @@ import {
   getCoreRowModel,
   useReactTable,
   getSortedRowModel,
-  type SortingState
+  type SortingState,
+  type Row
 } from '@tanstack/react-table'
-import { Link } from '@tanstack/react-router'
+import { Link, useNavigate } from '@tanstack/react-router'
 import type { PlatformCountType } from '../../types'
 
 /*
@@ -32,19 +33,37 @@ type AppProps = {
 const columnHelper = createColumnHelper<PlatformCountType>()
 
 const columns = [
-  columnHelper.accessor('Platform', {}),
+  columnHelper.accessor('Platform', {
+  }),
   columnHelper.accessor('UniqueId', {
     header: () => <span>Unique Id</span>
   }),
   columnHelper.accessor('Count', {
-    header: () => <span>Number of Soundings</span>,
+    header: () => <span>Soundings</span>,
     cell: (info) =>info.getValue().toLocaleString()
   })
 ]
 
+
+
+
 export default function PlatformsTable({ data, provider }: AppProps ) {
-    const [sorting, setSorting] = useState<SortingState>([])
-    console.log({data})
+    const navigate = useNavigate();
+    const [sorting, setSorting] = useState<SortingState>([{
+        id: 'Count',
+        desc: true
+    }])
+    // console.log({data})
+
+    function showPlatformDetail(row: Row<PlatformCountType>) {
+        console.log(row)
+        navigate({ 
+            to: "/providers/$providerId/$platformId", 
+            params: { providerId: provider, platformId: row.original.UniqueId }
+        });
+        
+    }   
+    
     const table = useReactTable({
         data,
         columns,
@@ -55,6 +74,13 @@ export default function PlatformsTable({ data, provider }: AppProps ) {
             sorting,
         },
     })
+
+    // table.getRowModel().rows.map((row) => {
+    //     console.log({row})
+    //     row.getVisibleCells().map((cell) => (
+    //         console.log(cell)
+    //     ))
+    // })
 
     return (
         <div className="flex flex-row mt-5 pr-5 border-solid border-2 w-fit">
@@ -115,19 +141,18 @@ export default function PlatformsTable({ data, provider }: AppProps ) {
         </thead>
         <tbody>
           {table.getRowModel().rows.map((row) => (
-            <tr className='ml-2 mr-2' key={row.id}>
+            <tr className='ml-2 mr-2' key={row.id} onClick={() => showPlatformDetail(row)}>
               {row.getVisibleCells().map((cell) => (
                 cell.column.id === 'UniqueId' ? 
                     <td className='pl-2 pr-6' key={cell.id}>
-                                <Link
-                                    to="/providers/$providerId/$platformId"
-                                    // TODO type coercion should not be necessary
-                                    params={{ providerId: provider, platformId: cell.getValue() as string }}
-                                    className="block py-1 hover:opacity-75 px-5"
-                                    activeProps={{ className: 'font-bold underline' }}
-                                >
-                                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                                </Link>
+                        <Link
+                            to="/providers/$providerId/$platformId"
+                            params={{ providerId: provider, platformId: row.original.UniqueId }}
+                            className="block py-1 hover:opacity-75 px-5"
+                            activeProps={{ className: 'font-bold underline' }}
+                        >
+                            {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                        </Link>
                     </td>
                 :
                     <td className='pl-2 pr-6' key={cell.id}>
