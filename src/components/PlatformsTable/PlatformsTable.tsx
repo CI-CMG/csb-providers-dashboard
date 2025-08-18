@@ -1,5 +1,5 @@
 import "./styles.css"
-import React, { useState } from 'react'
+import { useState } from 'react'
 import {
   createColumnHelper,
   flexRender,
@@ -38,7 +38,7 @@ const columns = [
   }),
   columnHelper.accessor('Count', {
     header: () => <span>Number of Soundings</span>,
-    cell: (info) => Number(info.getValue()).toLocaleString()
+    cell: (info) =>info.getValue().toLocaleString()
   })
 ]
 
@@ -121,7 +121,8 @@ export default function PlatformsTable({ data, provider }: AppProps ) {
                     <td className='pl-2 pr-6' key={cell.id}>
                                 <Link
                                     to="/providers/$providerId/$platformId"
-                                    params={{ providerId: provider, platformId: cell.getValue() }}
+                                    // TODO type coercion should not be necessary
+                                    params={{ providerId: provider, platformId: cell.getValue() as string }}
                                     className="block py-1 hover:opacity-75 px-5"
                                     activeProps={{ className: 'font-bold underline' }}
                                 >

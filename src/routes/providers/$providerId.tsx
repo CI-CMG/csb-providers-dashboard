@@ -158,7 +158,7 @@ function ProviderComponent() {
                     <div style={{"height": "300px", "overflow":"auto", "textAlign": "left"}} className='border-solid border-2 '>
                         <table className='bg-gray-20'>
                         <thead>
-                            <tr><th className='pl-6' onClick={sortById}>Platform UUID</th><th onClick={sortByName}>Name</th><th className='pr-2' onClick={sortByCount}>Number of Soundings</th></tr>
+                            <tr><th className='pl-6' ><button onClick={sortById}>Platform UUID</button></th><th onClick={sortByName}>Name</th><th className='pr-2' onClick={sortByCount}>Number of Soundings</th></tr>
                         </thead>
                         <tbody>
                         {
@@ -177,8 +177,7 @@ function ProviderComponent() {
                                 <td style={{paddingRight: "20px"}}>
                                     {i.Platform}
                                 </td>
-                                {/* TODO why is Number constructor required for toLocaleString() to work? */}
-                                <td style={{paddingRight: "10px"}}>{Number(i.Count).toLocaleString()}</td>
+                                <td style={{paddingRight: "10px"}}>{i.Count.toLocaleString()}</td>
                             </tr>)
                         }
                         </tbody>
