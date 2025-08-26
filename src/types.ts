@@ -1,5 +1,6 @@
 export type ProviderType = {
     ActiveProvider: boolean
+    // following two items are deprecated
     MinDate: string
     MaxDate: string
     MonthlyCounts: Array<MonthlyCountType>
@@ -7,6 +8,10 @@ export type ProviderType = {
     PlatformCounts: Array<PlatformCountType>
     Provider: string
     TotalSoundings: number
+    FirstCollection: string
+    LastCollection: string
+    FirstSubmission: string
+    LastSubmission: string
 }
 
 export type MonthlyCountType = {
@@ -19,6 +24,9 @@ export type PlatformCountType = {
     Count: number
     FirstSubmission: string
     LastSubmission: string
+    FirstCollection: string
+    LastCollection: string
+    UniqueId: string
     
 }
 
