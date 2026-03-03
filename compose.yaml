@@ -1,0 +1,7 @@
+services:
+  csb-providers-dashboard:
+    build:
+      context: .
+    container_name: frontend
+    ports:
+      - "31280:80"

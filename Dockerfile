@@ -1,5 +1,4 @@
 # Build stage
-# FROM node:23-alpine as build
 FROM node:krypton-alpine AS build
 
 # Set working directorym
