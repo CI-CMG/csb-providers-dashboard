@@ -122,7 +122,7 @@ function ProviderComponent() {
             <header>
                 <HeaderComponent title={'Crowdsourced Bathymetry Provider'} />
                 <div>
-                <button onClick={handleHomeButtonClick} className="bg-[#0F5CA0] hover:bg-blue-700 text-white font-bold text-sm py-1 px-1 m-1 rounded">Provider Index</button>
+                <button onClick={handleHomeButtonClick} className="bg-[#0F5CA0] hover:bg-blue-800 text-white font-bold text-sm py-1 px-1 m-1 rounded">Provider Index</button>
                 </div>
             </header>
             <main className={'main'}>
@@ -138,7 +138,7 @@ function ProviderComponent() {
                 <p>Submissions to DCDB from {providerData.FirstSubmission} to {providerData.LastSubmission}.</p>
                 {/* <p>Contributions from {providerData.MinDate} to {providerData.MaxDate}.</p> */}
                 <p>{providerData.PlatformCount} unique platform(s) with {providerData.TotalSoundings.toLocaleString()} total soundings.</p>
-                <p>Show on <a href="https://www.ncei.noaa.gov/maps/bathymetry/?csbProvider={providerId}&csbVisible=true&multibeamAllVisible=false&nosHydroBAGsVisible=false&nosHydroSurveyDataVisible=false&nosHydroVisible=false" target="_blank" rel="noopener noreferrer">map</a>.</p>
+                <p>Display in the <a className={"text-blue-600 underline hover:text-blue-800"} href="https://www.ncei.noaa.gov/maps/bathymetry/?csbProvider={providerId}&csbVisible=true&multibeamAllVisible=false&nosHydroBAGsVisible=false&nosHydroSurveyDataVisible=false&nosHydroVisible=false" target="_blank" rel="noopener noreferrer">Bathymetric Data Viewer</a>.</p>
                 {/* <hr style={{}} className='m-10'/> */}
 
                 <div className='flex flex-row mt-5 pt-5'>
