@@ -138,7 +138,7 @@ function ProviderComponent() {
                 <p>Submissions to DCDB from {providerData.FirstSubmission} to {providerData.LastSubmission}.</p>
                 {/* <p>Contributions from {providerData.MinDate} to {providerData.MaxDate}.</p> */}
                 <p>{providerData.PlatformCount} unique platform(s) with {providerData.TotalSoundings.toLocaleString()} total soundings.</p>
-                
+                <p>Show on <a href="https://www.ncei.noaa.gov/maps/bathymetry/?csbProvider={providerId}&csbVisible=true&multibeamAllVisible=false&nosHydroBAGsVisible=false&nosHydroSurveyDataVisible=false&nosHydroVisible=false" target="_blank" rel="noopener noreferrer">map</a>.</p>
                 {/* <hr style={{}} className='m-10'/> */}
 
                 <div className='flex flex-row mt-5 pt-5'>
