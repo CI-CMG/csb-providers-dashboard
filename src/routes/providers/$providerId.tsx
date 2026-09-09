@@ -140,7 +140,7 @@ function ProviderComponent() {
                 <p>Submissions to DCDB from {providerData.FirstSubmission} to {providerData.LastSubmission}.</p>
                 {/* <p>Contributions from {providerData.MinDate} to {providerData.MaxDate}.</p> */}
                 <p>{providerData.PlatformCount} unique platform(s) with {providerData.TotalSoundings.toLocaleString()} total soundings.</p>
-                <p>Display in the <a className={"text-blue-600 underline hover:text-blue-800"} href={mapUrl} target="_blank" rel="noopener noreferrer">Bathymetric Data Viewer</a>.</p>
+                <p>Display in the <a className={"text-blue-600 underline hover:text-blue-800"} href={mapUrl} target="_blank" rel="noopener noreferrer">Data Centre for Digital Bathymetry Viewer</a>.</p>
                 {/* <hr style={{}} className='m-10'/> */}
 
                 <div className='flex flex-row mt-5 pt-5'>
