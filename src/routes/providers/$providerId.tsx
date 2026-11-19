@@ -118,7 +118,7 @@ function ProviderComponent() {
     // console.log({dates})
     const ylabel = yAxisHelper(providerData.MonthlyCounts)
     //const mapUrl = `https://www.ncei.noaa.gov/maps/bathymetry/?csbProvider=${providerId}&csbVisible=true&multibeamAllVisible=false&nosHydroBAGsVisible=false&nosHydroSurveyDataVisible=false&nosHydroVisible=false`
-    const mapUrl = `https://www.ncei.noaa.gov/maps/iho-data-centre-digital-bathymetry/?csbProvider=${providerId}&csbVisible=true&multibeamAllVisible=false`
+    const mapUrl = `https://www.ncei.noaa.gov/maps/iho-data-centre-digital-bathymetry/?csbProvider=${providerId}&csbVisible=true&multibeamAllVisible=false&multibeamFootprintsVisible=false`
     return (
         <div className={'wrapper'}>
             <header>
