@@ -24,7 +24,7 @@ function ProvidersLayoutComponent() {
 
       <main className="main">
         <h1 className=" text-2xl font-bold pb-2">Providers</h1>
-        <h2 className="pb-2">Report Date: {data.report_date}</h2>
+        {/* <h2 className="pb-2">Report Date: {data.report_date}</h2> */}
         <table className="border-solid border-2 w-fit">
           <thead></thead>
           <tbody className="">
